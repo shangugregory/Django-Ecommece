@@ -101,7 +101,7 @@ $(document).ready(function() {
             </div> <!-- col.// -->
             <a href=" {%url 'store'%} " class="btn btn-outline-primary">Store</a>
             <div class="col-lg  col-md-6 col-sm-12 col">
-                <form action="{% url 'search' %}" class="search">
+                <form action="{% url 'search' %}" class="search" method="GET">
                     <div class="input-group w-100">
                         <input type="text" class="form-control" style="width:60%;" placeholder="Search" name="keyword">
                         
@@ -145,6 +145,8 @@ $(document).ready(function() {
                         <p class="text-muted"> &copy Arlio Enterprice </p>
                     </div>
                     <div class="col-md-8 text-md-center">
+                        <span  class="px-1">Designed by:</span>
+                        <span  class="px-2">Gregory Mukite</span>
                         <span  class="px-2">shangugregory@gmail.com</span>
                         <span  class="px-2">+254740620167</span>
                         <span  class="px-2">30200, Kitale</span>
