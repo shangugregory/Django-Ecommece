@@ -20,11 +20,6 @@ def PlaceOrder(request):
 def ProductDetail(request):
     return render(request, 'home/product-detail.html', {})
 
-def Register(request):
-    return render(request, 'home/register.html', {})
-
-def Signin(request):
-    return render(request, 'home/signin.html', {})
 
 def Store(request):
     return render(request, 'home/store.html', {})
