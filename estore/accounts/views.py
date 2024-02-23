@@ -1,7 +1,17 @@
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render
+from django.contrib import messages, auth
 from .models import Account
 from.forms import RegistrationForm
+from django.contrib.auth.decorators import login_required
+
+#verification email
+from django.http import HttpResponse
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage
 
 # Create your views here.
 def Register(request):
@@ -18,6 +28,22 @@ def Register(request):
             user = Account.objects.create_user(first_name = first_name, last_name= last_name, email = email, username = username, password= password)
             user.phone_number = phone_number
             user.save()
+            
+
+            current_site = get_current_site(request)
+            mail_subject = 'Please Activate Your account'
+            message = render_to_string('home/account_verification_email.html', {
+                'user':user,
+                'domain':current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user)
+                        
+            })
+            to_email = email
+            send_email = EmailMessage(mail_subject, message, to = [to_email])
+            send_email.send()
+            messages.success(request, 'Registration successful')
+            return redirect('register')
     else:
         form = RegistrationForm()
 
@@ -28,4 +54,27 @@ def Register(request):
     return render(request, 'home/register.html', context)
     
 def Login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(email = email, password = password)
+        if user is not None:
+            auth.login(request, user)
+            #messages.success(request, 'You are now logged in')
+            return redirect('/')
+        else:
+            messages.error(request, 'Invalid Login Credentials!')
+            redirect('login')
+
     return render(request, 'home/signin.html')
+
+
+@login_required(login_url = 'login')
+def Logout(request):
+    auth.logout(request)
+    messages.success(request, 'You are Logged out')
+    return redirect('login')
+
+def activate(request, uidb64, token):
+    return HttpResponse('Ok')
