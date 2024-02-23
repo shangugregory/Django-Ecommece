@@ -8,8 +8,7 @@ def Home(request):
     context={'product':product,}
     return render(request, 'home/index.html', context)
 
-def Dashboard(request):
-    return render(request, 'home/dashboard.html', {})
+
 
 def OrderCompleted(request):
     return render(request, 'home/orde_completed.html', {})

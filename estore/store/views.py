@@ -44,7 +44,7 @@ def Product_Detail(request, category_slug ,product_slug):
         'single_product' : single_product,
         'in_cart': in_cart
     }
-    return render(request, 'home/product-detail.html', context)
+    return render(request, 'store/product-detail.html', context)
 
 def Search(request):
     if 'keyword' in request.GET:

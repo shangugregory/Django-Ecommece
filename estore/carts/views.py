@@ -114,4 +114,4 @@ def Cart(request, total = 0, quantity = 0, cart_items = None):
         'tax':tax
     }
 
-    return render(request, 'home/cart.html', context)
+    return render(request, 'cart/cart.html', context)
