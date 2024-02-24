@@ -3,6 +3,8 @@ from django.contrib import messages, auth
 from .models import Account
 from.forms import RegistrationForm
 from django.contrib.auth.decorators import login_required
+from carts.models import Cart, CartItem
+from carts.views import _cart_id
 
 #verification email
 from django.http import HttpResponse
@@ -60,6 +62,17 @@ def Login(request):
 
         user = auth.authenticate(email = email, password = password)
         if user is not None:
+            try:
+                cart = Cart.objects.get(cart_id = _cart_id(request))
+                is_cart_item_exist = CartItem.objects.filter( cart= cart).exists()
+                if is_cart_item_exist:
+                    cart_item = CartItem.objects.filter(cart = cart)
+
+                    for item in cart_item:
+                        item.user = user
+                        item.save()
+            except:
+                pass
             auth.login(request, user)
             messages.success(request, 'You are now logged in')
             return redirect('dashboard')
