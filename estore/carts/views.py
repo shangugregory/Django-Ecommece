@@ -1,3 +1,5 @@
+#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
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from store.models import Product
