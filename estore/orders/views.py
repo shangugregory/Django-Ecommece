@@ -5,6 +5,10 @@ from .forms import OrderForm
 import datetime
 from .models import Order
 # Create your views here.
+
+def Payments(request):
+    return render(request, 'orders/payments.html')
+
 def Place_order(request, total = 0, quantity = 0):
     current_user = request.user
     cart_items = CartItem.objects.filter(user = current_user)
@@ -49,7 +53,18 @@ def Place_order(request, total = 0, quantity = 0):
             order_number = current_date + str(data.id)
             data.order_number= order_number
             data.save()
-            return redirect('checkout')
+            print("Order saved successfully:", request.user)
+
+            
+            order = Order.objects.get(is_ordered = False, order_number = order_number)
+            context= {
+                'order': order,
+                'cart_items':cart_items,
+                'total':total,
+                'tax':tax,
+                'grand_total':grand_total
+            }
+            return render(request, 'orders/payments.html', context)
         else:
             # Handle the case where the form is not valid
             # You might want to render the form again with validation errors

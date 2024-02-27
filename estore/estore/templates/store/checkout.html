@@ -45,7 +45,7 @@
                                         <input type="text" name="city" class="form-control" required>
                                     </div>
                                     <div class="col form-group">
-                                        <label for="">State</label>
+                                        <label for="">County</label>
                                         <input type="text" name="state" class="form-control">
                                     </div>
                                     <div class="col form-group">
@@ -91,8 +91,7 @@
                                                 <p class="muted-text small">
                                                     {%if cart_item.variation.all%}
                                                     {% for item in cart_item.variation.all %}
-                                                    {{item.variation_cartegory |capfirst}}:{{item.variation_value |
-                                                    capfirst}} <br>
+                                                    {{item.variation_cartegory |capfirst}}:{{item.variation_value|capfirst}} <br>
                                                     {%endfor%}
                                                     {%endif%}
                                                 </p>

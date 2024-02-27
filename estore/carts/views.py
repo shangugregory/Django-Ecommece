@@ -1,4 +1,4 @@
-#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
+#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
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist

@@ -11,7 +11,7 @@ def Home(request):
 
 
 def OrderCompleted(request):
-    return render(request, 'home/orde_completed.html', {})
+    return render(request, 'home/order_complete.html', {})
 
 def PlaceOrder(request):
     return render(request, 'home/place-order.html', {})
