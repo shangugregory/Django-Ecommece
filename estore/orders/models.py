@@ -4,7 +4,7 @@ from store.models import Product, Variation
 # Create your models here.
 class Payment(models.Model):
     user = models.ForeignKey(Account, on_delete = models.CASCADE)
-    payment_id = models.CharField(max_length=100)
+    payment_id = models.CharField(max_length=100, null = True)
     payment_method = models.CharField(max_length=100)
     amount_paid = models.CharField(max_length=100)
     status = models.CharField(max_length= 100)
@@ -22,11 +22,11 @@ class Order(models.Model):
         ('Canceled', 'Canceled'),
     )
     user = models.ForeignKey(Account, on_delete = models.CASCADE, null = True)
-    payment = models.ForeignKey(Payment, on_delete= models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete= models.CASCADE, null = True)
     order_number = models.CharField(max_length = 20)
     first_name = models.CharField(max_length = 50)
-    las_name = models.CharField(max_length = 50)
-    phone_number = models.CharField(max_length = 50)
+    last_name = models.CharField(max_length = 50)
+    phone = models.CharField(max_length = 50)
     email = models.EmailField(max_length = 50)
     address_line1 = models.CharField(max_length = 50)
     address_line2 = models.CharField(max_length = 50, blank =True)
@@ -43,7 +43,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
 
     def __str__(self):
-        return self.user.first_name
+        return self.first_name
 
 
 class OrderProduct(models.Model):

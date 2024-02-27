@@ -15,6 +15,7 @@ urlpatterns = [
     path('order_completed', home_views.OrderCompleted, name='orde_completed'),
     path('place_order', home_views.PlaceOrder, name='place_order'),
     path('product', home_views.ProductDetail, name='product'),
+    path('orders/', include('orders.urls'))
     
     
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

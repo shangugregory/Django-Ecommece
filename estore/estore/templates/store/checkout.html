@@ -8,8 +8,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Billing Address</h4>
-                        <form action="" method="POST">
-                            {% csrf_token  %}
+                        <form action="{% url 'place_order' %}" method="POST">
+                            {% csrf_token %}
                             <div class="form-row">
                                 <div class="col form-group">
                                     <label for="">First Name</label>
@@ -27,16 +27,16 @@
                                 </div>
                                 <div class="col form-group">
                                     <label for="">Phone Number</label>
-                                    <input type="text" name="phone_number" class="form-control" required>
+                                    <input type="text" name="phone" class="form-control" required>
                                 </div>
                                 <div class="form-row">
                                     <div class="col form-group">
                                         <label for="">Address Line 1</label>
-                                        <input type="text" name="address_line_1" class="form-control" required>
+                                        <input type="text" name="address_line1" class="form-control" required>
                                     </div>
                                     <div class="col form-group">
                                         <label for="">Address Line 2</label>
-                                        <input type="text" name="address_line_2" class="form-control">
+                                        <input type="text" name="address_line2" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -52,15 +52,15 @@
                                         <label for="">Country</label>
                                         <input type="text" name="country" class="form-control">
                                     </div>
-                                   
+
                                 </div>
                                 <div class="form-row col">
                                     <label for="">Order Note</label>
                                     <textarea name="order_note" rows="2" class="form-control"></textarea>
                                 </div>
-                                
+
                             </div>
-                        
+
                     </div>
                 </div> <!-- card.// -->
             </aside> <!-- col.// -->
@@ -74,7 +74,7 @@
                                     <th scope="col">Product</th>
                                     <th scope="col" width="120">Quantity</th>
                                     <th scope="col" width="120">Price</th>
-                                   
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,7 +91,8 @@
                                                 <p class="muted-text small">
                                                     {%if cart_item.variation.all%}
                                                     {% for item in cart_item.variation.all %}
-                                                    {{item.variation_cartegory |capfirst}}:{{item.variation_value | capfirst}} <br>
+                                                    {{item.variation_cartegory |capfirst}}:{{item.variation_value |
+                                                    capfirst}} <br>
                                                     {%endfor%}
                                                     {%endif%}
                                                 </p>
@@ -109,7 +110,7 @@
                                             <small class="text-muted"> ${{cart_item.product.price}} each </small>
                                         </div> <!-- price-wrap .// -->
                                     </td>
-                                    
+
                                 </tr>
                                 {%endfor%}
                                 </tr>
@@ -121,8 +122,8 @@
                 </div> <!-- card.// -->
 
             </aside> <!-- col.// -->
-        </div> 
-    </form><!-- row.// -->
+        </div>
+        </form><!-- row.// -->
     </div> <!-- container .//  -->
 </section>
 {% endblock content %}
