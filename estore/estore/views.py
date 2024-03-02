@@ -7,18 +7,3 @@ def Home(request):
     
     context={'product':product,}
     return render(request, 'home/index.html', context)
-
-
-
-def OrderCompleted(request):
-    return render(request, 'home/order_complete.html', {})
-
-def PlaceOrder(request):
-    return render(request, 'home/place-order.html', {})
-
-def ProductDetail(request):
-    return render(request, 'home/product-detail.html', {})
-
-
-def Store(request):
-    return render(request, 'home/store.html', {})
