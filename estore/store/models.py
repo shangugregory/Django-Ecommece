@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg, Count
 from django.urls import reverse
 from category.models import Category
 from accounts.models import Account
@@ -16,11 +17,27 @@ class Product(models.Model):
     modified_date= models.DateTimeField(auto_now = True)
     is_available = models.BooleanField()
 
+    def averageReview(self):
+        reviews = ReviewRatings.objects.filter(product = self, status = True).aggregate(average = Avg('rating'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+
+    def countReview(self):
+        reviews = ReviewRatings.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
+
     def get_url(self):
         return reverse('Product_Detail', args=[self.category.slug, self.slug])
 
     def __str__(self):
         return self.product_name
+
+
 class variationmanager(models.Manager):
     def colors(self):
         return super(variationmanager, self).filter(variation_cartegory = 'color', is_active = True)
