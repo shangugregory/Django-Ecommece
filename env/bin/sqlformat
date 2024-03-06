@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/gregg/Desktop/Django Ecommerce/env/bin/python3" "$0" "$@"
-' '''
+#!/home/gregory/Desktop/Ecommerce/Django-Ecommece/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
