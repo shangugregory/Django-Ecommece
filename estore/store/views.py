@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, ReviewRatings
+from .models import Product, ReviewRatings, ProductGalery
 from category.models import Category
 from carts.views import _cart_id
 from carts.models import CartItem
@@ -55,13 +55,19 @@ def Product_Detail(request, category_slug ,product_slug):
         orderproduct = None
     #get reviews
     reviews = ReviewRatings.objects.filter(product_id = single_product.id, status = True)
+
+    #Get The product galery
+    product_galery = ProductGalery.objects.filter(product_id = single_product.id)
     context = {
         'single_product' : single_product,
         'in_cart': in_cart,
         'orderproduct': orderproduct,
         'reviews': reviews,
+        'product_galery':product_galery
     }
     return render(request, 'store/product-detail.html', context)
+
+    
 
 def Search(request):
     if 'keyword' in request.GET:
